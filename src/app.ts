@@ -5,8 +5,6 @@ const addressInput = document.querySelector('#address')! as HTMLInputElement
 
 const GOOGLE_API_KEY = 'AIzaSyAJH9BwhKTRkugTS2Fc3X24Mugo-SEAkEQ'
 
-declare var google: any
-
 type GoogleGeocodingResponse = {
 	results: { geometry: { location: { lat: number; lng: number } } }[]
 	status: 'OK' | 'ZERO_RESULTS'
@@ -28,18 +26,18 @@ const searchAddressHandler = (event: Event) => {
 				throw new Error('Could not fetch location!')
 			}
 			const coordinates = res.data.results[0].geometry.location
-      const map = new google.maps.Map(document.getElementById("map"), {
+      const map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
         center: coordinates,
         zoom: 16,
       });
-      new google.maps.Marker({
+      new google.maps.Marker({ 
         position: coordinates,
         map: map,
       });
 		})
 		.catch(err => {
 			console.log(err)
-			alert(err.message)
+			alert(err.message) 
 		})
 }
 
